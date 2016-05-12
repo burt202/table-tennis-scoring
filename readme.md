@@ -1,6 +1,6 @@
 ## Table Tennis Scoring
 
-A league and fixture generator for table tennis leagues
+A league and fixture generator for table tennis
 
 ### Initial Setup
 

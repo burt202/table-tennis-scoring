@@ -1,7 +1,7 @@
 {
   "name": "table-tennis-scoring",
   "version": "0.0.1",
-  "description": "A league and fixture generator for table tennis leagues",
+  "description": "A league and fixture generator for table tennis",
   "license": "ISC",
   "repository": "https://github.com/burt202/table-tennis-scoring",
   "scripts": {
@@ -12,8 +12,12 @@
   },
   "devDependencies": {
     "eslint": "^2.9.0",
+    "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-rename": "^1.2.2",
-    "gulp-replace-task": "^0.11.0"
+    "gulp-replace-task": "^0.11.0",
+    "run-sequence": "^1.1.5"
   }
 }
