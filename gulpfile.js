@@ -12,7 +12,7 @@ gulp.task("build", function () {
   leagues.forEach(function (leagueName) {
     var results = getResultsForLeague(basePath, leagueName);
 
-    gulp.src("index.html")
+    gulp.src("src/template.html")
       .pipe(replace({
         patterns: [
           {
