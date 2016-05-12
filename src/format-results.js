@@ -1,17 +1,12 @@
 var R = require("ramda");
-var getAllLeagues = require("./get-all-leagues");
 
-var LIVE_LEAGUE = "test";
-
-var allLeagues = getAllLeagues();
-
-function buildResults (leagueData) {
+module.exports = function (players, results) {
   var base = R.reduce(function (acc, val) {
     acc[val] = {played: 0, wins: 0, for: 0, against: 0, diff: 0, results: []};
     return acc;
-  }, {}, leagueData.players);
+  }, {}, players);
 
-  var sortedResults = R.pipe(
+  return R.pipe(
     R.flatten,
     R.reduce(function (acc, val) {
       var resultParts = R.split(",", val);
@@ -53,9 +48,5 @@ function buildResults (leagueData) {
       return a["wins"] - b["wins"] || a["diff"] - b["diff"];
     }),
     R.reverse
-  )(leagueData.results);
-
-  console.log(sortedResults);
+  )(results);
 }
-
-allLeagues.forEach(buildResults);
