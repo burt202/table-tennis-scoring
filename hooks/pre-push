@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "running pre-push hook..."
+gulp deploy
+exit 0

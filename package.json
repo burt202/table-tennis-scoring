@@ -4,6 +4,9 @@
   "description": "A league and fixture generator for table tennis leagues",
   "license": "ISC",
   "repository": "https://github.com/burt202/table-tennis-scoring",
+  "scripts": {
+    "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push"
+  },
   "dependencies": {
     "ramda": "^0.21.0"
   },
