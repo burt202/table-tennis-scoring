@@ -6,8 +6,15 @@ var runSequence = require("run-sequence");
 var clean = require("gulp-clean");
 var deploy = require("gulp-gh-pages");
 var es = require("event-stream");
+var swig = require("gulp-swig");
+var data = require("gulp-data");
 
 var getResultsForLeague = require("./src/get-results-for-league");
+
+var LIVE_LEAGUE = "test";
+
+var basePath = __dirname + "/leagues";
+var leagues = fs.readdirSync(basePath);
 
 gulp.task("default", ["watch"]);
 
@@ -20,10 +27,7 @@ gulp.task("clean", function () {
     .pipe(clean());
 });
 
-gulp.task("process-templates", function () {
-  var basePath = __dirname + "/leagues";
-  var leagues = fs.readdirSync(basePath);
-
+gulp.task("process-league-templates", function () {
   return es.merge(leagues.map(function (leagueName) {
     var results = getResultsForLeague(basePath, leagueName);
 
@@ -45,10 +49,18 @@ gulp.task("process-templates", function () {
   }));
 });
 
+gulp.task("process-index-template", function() {
+  return gulp.src("./src/index.html")
+    .pipe(data({league: leagues, active: LIVE_LEAGUE}))
+    .pipe(swig())
+    .pipe(gulp.dest("build"));
+});
+
 gulp.task("build", function (callback) {
   runSequence(
     "clean",
-    "process-templates",
+    "process-index-template",
+    "process-league-templates",
     callback
   );
 });

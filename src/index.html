@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>Table Tennis Leagues</title>
+  </head>
+  <body>
+    <ul>
+    {% for league in league %}
+      <li{% if league == active %} class="active"{% endif %}>
+        <a href="{{ league }}.html">{{ league }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  <body>
+</html>
