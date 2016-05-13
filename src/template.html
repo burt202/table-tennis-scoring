@@ -1,7 +1,36 @@
 <html>
   <head>
-    <title>@@name</title>
-    <script>var data = @@results; console.log(data);</script>
+    <title>{{ name }}</title>
   </head>
-  <body><body>
+  <body>
+    <h1>{{ name }}</h1>
+    <p><a href="/">back</a></p>
+
+    <table>
+      <thead>
+        <tr>
+          <td></td>
+          <td>Player</td>
+          <td>Played</td>
+          <td>Wins</td>
+          <td>For</td>
+          <td>Against</td>
+          <td>Diff</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in standings %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.played }}</td>
+            <td>{{ row.wins }}</td>
+            <td>{{ row.for }}</td>
+            <td>{{ row.against }}</td>
+            <td>{{ row.diff }}</td>
+          </tr>
+        {% endfor %}
+      <tbody>
+    </table>
+  <body>
 </html>

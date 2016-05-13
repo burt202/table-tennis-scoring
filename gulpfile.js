@@ -1,6 +1,5 @@
 var fs = require("fs");
 var gulp = require("gulp");
-var replace = require("gulp-replace-task");
 var rename = require("gulp-rename");
 var runSequence = require("run-sequence");
 var clean = require("gulp-clean");
@@ -33,18 +32,8 @@ gulp.task("process-league-templates", function () {
     var results = getResultsForLeague(basePath, leagueName);
 
     return gulp.src("src/template.html")
-      .pipe(replace({
-        patterns: [
-          {
-            match: "name",
-            replacement: leagueName
-          },
-          {
-            match: "results",
-            replacement: results
-          }
-        ]
-      }))
+      .pipe(data({name: leagueName, standings: results}))
+      .pipe(swig())
       .pipe(rename(leagueName + ".html"))
       .pipe(gulp.dest("build"));
   }));
