@@ -6,7 +6,7 @@ module.exports = function (players, results) {
     return acc;
   }, {}, players);
 
-  return R.pipe(
+  var standings = R.pipe(
     R.flatten,
     R.reduce(function (acc, val) {
       var resultParts = R.split(",", val);
@@ -49,4 +49,8 @@ module.exports = function (players, results) {
     }),
     R.reverse
   )(results);
+
+  return {
+    standings: standings
+  };
 }

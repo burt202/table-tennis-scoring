@@ -9,7 +9,7 @@ var swig = require("gulp-swig");
 var data = require("gulp-data");
 var R = require("ramda");
 
-var getResultsForLeague = require("./src/get-results-for-league");
+var getDataForLeague = require("./src/get-data-for-league");
 
 var LIVE_LEAGUE = "test";
 
@@ -29,10 +29,10 @@ gulp.task("clean", function () {
 
 gulp.task("process-league-templates", function () {
   return es.merge(leagues.map(function (leagueName) {
-    var results = getResultsForLeague(basePath, leagueName);
+    var leagueData = getDataForLeague(basePath, leagueName);
 
     return gulp.src("src/template.html")
-      .pipe(data({name: leagueName, standings: results}))
+      .pipe(data(R.merge({name: leagueName}, leagueData)))
       .pipe(swig())
       .pipe(rename(leagueName + ".html"))
       .pipe(gulp.dest("build"));
