@@ -8,6 +8,7 @@ var deploy = require("gulp-gh-pages");
 var es = require("event-stream");
 var swig = require("gulp-swig");
 var data = require("gulp-data");
+var R = require("ramda");
 
 var getResultsForLeague = require("./src/get-results-for-league");
 
@@ -49,9 +50,11 @@ gulp.task("process-league-templates", function () {
   }));
 });
 
-gulp.task("process-index-template", function() {
+gulp.task("process-index-template", function () {
+  var previousLeagues = R.without(LIVE_LEAGUE, leagues);
+
   return gulp.src("./src/index.html")
-    .pipe(data({league: leagues, active: LIVE_LEAGUE}))
+    .pipe(data({liveLeague: LIVE_LEAGUE, previousLeagues: previousLeagues}))
     .pipe(swig())
     .pipe(gulp.dest("build"));
 });
