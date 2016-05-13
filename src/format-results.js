@@ -1,4 +1,5 @@
 var R = require("ramda");
+var moment = require("moment");
 
 function getStandings (players, results) {
   var base = R.reduce(function (acc, val) {
@@ -65,7 +66,7 @@ function getAllResults (results) {
     R.toPairs,
     R.map(function (pair) {
       return {
-        date: pair[0],
+        date: moment(pair[0], "YYYYMMDD").format("MMMM Do YYYY"),
         results: pair[1]
       };
     }),
