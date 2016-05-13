@@ -32,5 +32,19 @@
         {% endfor %}
       <tbody>
     </table>
+
+    <div>
+      <h2>All Results</h2>
+      {% if allResults.length %}
+        {% for dateRow in allResults %}
+          <p><strong>{{ dateRow.date }}</strong></p>
+          {% for row in dateRow.results %}
+            <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
+          {% endfor %}
+        {% endfor %}
+      {% else %}
+        <p>No results yet</p>
+      {% endif %}
+    </div>
   <body>
 </html>

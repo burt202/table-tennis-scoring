@@ -1,13 +1,12 @@
 var R = require("ramda");
 
-module.exports = function (players, results) {
+function getStandings (players, results) {
   var base = R.reduce(function (acc, val) {
-    acc[val] = {played: 0, wins: 0, for: 0, against: 0, diff: 0, results: []};
+    acc[val] = {played: 0, wins: 0, for: 0, against: 0, diff: 0};
     return acc;
   }, {}, players);
 
-  var standings = R.pipe(
-    R.flatten,
+  return R.pipe(
     R.reduce(function (acc, val) {
       var resultParts = R.split(",", val);
       var winner = resultParts[0];
@@ -22,8 +21,7 @@ module.exports = function (players, results) {
         played: R.add(1),
         wins: R.add(1),
         for: R.add(fore),
-        against: R.add(against),
-        results: R.append(val)
+        against: R.add(against)
       }, acc[winner]);
 
       acc[winner].diff = acc[winner].for - acc[winner].against;
@@ -32,8 +30,7 @@ module.exports = function (players, results) {
         played: R.add(1),
         wins: R.identity,
         for: R.add(against),
-        against: R.add(fore),
-        results: R.append(val)
+        against: R.add(fore)
       }, acc[loser]);
 
       acc[loser].diff = acc[loser].for - acc[loser].against;
@@ -49,8 +46,36 @@ module.exports = function (players, results) {
     }),
     R.reverse
   )(results);
+}
 
+function getAllResults (results) {
+  return  R.pipe(
+    R.reduce(function (acc, val) {
+      var resultParts = R.split(",", val);
+      var winner = resultParts[0];
+      var loser = resultParts[1];
+      var score = resultParts[2];
+      var date = resultParts[3];
+
+      if (!acc[date]) acc[date] = [];
+      acc[date].push({winner: winner, loser: loser, score: score});
+
+      return acc;
+    }, {}),
+    R.toPairs,
+    R.map(function (pair) {
+      return {
+        date: pair[0],
+        results: pair[1]
+      };
+    }),
+    R.reverse
+  )(results);
+}
+
+module.exports = function (players, results) {
   return {
-    standings: standings
+    standings: getStandings(players, results),
+    allResults: getAllResults(results)
   };
 }

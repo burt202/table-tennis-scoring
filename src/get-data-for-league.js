@@ -1,4 +1,5 @@
 var fs = require("fs");
+var R = require("ramda");
 var formatResults = require("./format-results");
 
 module.exports = function (basePath, leagueName) {
@@ -14,5 +15,5 @@ module.exports = function (basePath, leagueName) {
     });
   });
 
-  return formatResults(players, results);
+  return formatResults(players, R.flatten(results));
 }
