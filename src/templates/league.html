@@ -46,5 +46,28 @@
         <p>No results yet</p>
       {% endif %}
     </div>
+
+    {% for breakdown in playerBreakdowns %}
+      <div>
+        <h2>{{ breakdown.name }} breakdown</h2>
+        {% if breakdown.results.length %}
+          <p><strong>Results</strong></p>
+          {% for row in breakdown.results %}
+            <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
+          {% endfor %}
+        {% else %}
+          <p>No results yet</p>
+        {% endif %}
+
+        {% if breakdown.yetToPlay.length %}
+          <p><strong>Remaining Fixtures</strong></p>
+          {% for player in breakdown.yetToPlay %}
+            <p>{{ breakdown.name }} v {{ player}}</p>
+          {% endfor %}
+        {% else %}
+          <p>None</p>
+        {% endif %}
+      {% endfor %}
+    </div>
   <body>
 </html>
