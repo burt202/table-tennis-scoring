@@ -6,7 +6,7 @@
     <h1>{{ name }}</h1>
     <p><a href="index.html">back</a></p>
 
-    <table>
+    <table class="standings">
       <thead>
         <tr>
           <td></td>
@@ -20,7 +20,7 @@
       </thead>
       <tbody>
         {% for row in standings %}
-          <tr>
+          <tr data-player="{{ row.name }}">
             <td>{{ loop.index }}</td>
             <td>{{ row.name }}</td>
             <td>{{ row.played }}</td>
@@ -33,7 +33,7 @@
       <tbody>
     </table>
 
-    <div>
+    <div class="all-results">
       <h2>All Results</h2>
       {% if allResults.length %}
         {% for dateRow in allResults %}
@@ -48,7 +48,7 @@
     </div>
 
     {% for breakdown in playerBreakdowns %}
-      <div>
+      <div class="breakdown" data-player="{{ breakdown.name }}" style="display: none">
         <h2>{{ breakdown.name }} breakdown</h2>
         {% if breakdown.results.length %}
           <p><strong>Results</strong></p>
@@ -67,7 +67,28 @@
         {% else %}
           <p>All fixtures played!</p>
         {% endif %}
-      {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
+
+    <script type="text/javascript">
+
+    var allResultsDiv = document.querySelector(".all-results");
+
+      [].forEach.call(document.querySelectorAll(".standings tbody td"), function (el) {
+        el.addEventListener("click", function (e) {
+          var row = e.target.parentNode;
+          var selectedPlayer = row.getAttribute("data-player");
+
+          [].forEach.call(document.querySelectorAll(".breakdown"), function (el) {
+            el.style.display = "none";
+          }, false);
+
+          allResultsDiv.style.display = "none";
+          var playerBreakdownDiv = document.querySelector(".breakdown[data-player='" + selectedPlayer + "']");
+          playerBreakdownDiv.style.display = "block";
+        }, false);
+      });
+
+    </script>
   <body>
 </html>
