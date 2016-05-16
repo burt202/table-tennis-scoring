@@ -1,94 +1,95 @@
-<html>
-  <head>
-    <title>{{ name }}</title>
-  </head>
-  <body>
-    <h1>{{ name }}</h1>
-    <p><a href="index.html">back</a></p>
+{% extends 'layout.html' %}
 
-    <table class="standings">
-      <thead>
-        <tr>
-          <td></td>
-          <td>Player</td>
-          <td>Played</td>
-          <td>Wins</td>
-          <td>For</td>
-          <td>Against</td>
-          <td>Diff</td>
+{% block title %}{{ name }}{% endblock %}
+
+{% block content %}
+
+  <h1>{{ name }}</h1>
+  <p><a href="index.html">back</a></p>
+
+  <table class="standings">
+    <thead>
+      <tr>
+        <td></td>
+        <td>Player</td>
+        <td>Played</td>
+        <td>Wins</td>
+        <td>For</td>
+        <td>Against</td>
+        <td>Diff</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in standings %}
+        <tr data-player="{{ row.name }}">
+          <td>{{ loop.index }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.played }}</td>
+          <td>{{ row.wins }}</td>
+          <td>{{ row.for }}</td>
+          <td>{{ row.against }}</td>
+          <td>{{ row.diff }}</td>
         </tr>
-      </thead>
-      <tbody>
-        {% for row in standings %}
-          <tr data-player="{{ row.name }}">
-            <td>{{ loop.index }}</td>
-            <td>{{ row.name }}</td>
-            <td>{{ row.played }}</td>
-            <td>{{ row.wins }}</td>
-            <td>{{ row.for }}</td>
-            <td>{{ row.against }}</td>
-            <td>{{ row.diff }}</td>
-          </tr>
-        {% endfor %}
-      <tbody>
-    </table>
+      {% endfor %}
+    <tbody>
+  </table>
 
-    <div class="all-results">
-      <h2>All Results</h2>
-      {% if allResults.length %}
-        {% for dateRow in allResults %}
-          <p><strong>{{ dateRow.date }}</strong></p>
-          {% for row in dateRow.results %}
-            <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
-          {% endfor %}
+  <div class="all-results">
+    <h2>All Results</h2>
+    {% if allResults.length %}
+      {% for dateRow in allResults %}
+        <p><strong>{{ dateRow.date }}</strong></p>
+        {% for row in dateRow.results %}
+          <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
+        {% endfor %}
+      {% endfor %}
+    {% else %}
+      <p>No results yet</p>
+    {% endif %}
+  </div>
+
+  {% for breakdown in playerBreakdowns %}
+    <div class="breakdown" data-player="{{ breakdown.name }}" style="display: none">
+      <h2>{{ breakdown.name }} breakdown</h2>
+      {% if breakdown.results.length %}
+        <p><strong>Results</strong></p>
+        {% for row in breakdown.results %}
+          <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
         {% endfor %}
       {% else %}
         <p>No results yet</p>
       {% endif %}
+
+      {% if breakdown.yetToPlay.length %}
+        <p><strong>Remaining Fixtures</strong></p>
+        {% for player in breakdown.yetToPlay %}
+          <p>{{ breakdown.name }} v {{ player}}</p>
+        {% endfor %}
+      {% else %}
+        <p>All fixtures played!</p>
+      {% endif %}
     </div>
+  {% endfor %}
 
-    {% for breakdown in playerBreakdowns %}
-      <div class="breakdown" data-player="{{ breakdown.name }}" style="display: none">
-        <h2>{{ breakdown.name }} breakdown</h2>
-        {% if breakdown.results.length %}
-          <p><strong>Results</strong></p>
-          {% for row in breakdown.results %}
-            <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
-          {% endfor %}
-        {% else %}
-          <p>No results yet</p>
-        {% endif %}
+  <script type="text/javascript">
 
-        {% if breakdown.yetToPlay.length %}
-          <p><strong>Remaining Fixtures</strong></p>
-          {% for player in breakdown.yetToPlay %}
-            <p>{{ breakdown.name }} v {{ player}}</p>
-          {% endfor %}
-        {% else %}
-          <p>All fixtures played!</p>
-        {% endif %}
-      </div>
-    {% endfor %}
+    var allResultsDiv = document.querySelector(".all-results");
 
-    <script type="text/javascript">
+    [].forEach.call(document.querySelectorAll(".standings tbody td"), function (el) {
+      el.addEventListener("click", function (e) {
+        var row = e.target.parentNode;
+        var selectedPlayer = row.getAttribute("data-player");
 
-      var allResultsDiv = document.querySelector(".all-results");
-
-      [].forEach.call(document.querySelectorAll(".standings tbody td"), function (el) {
-        el.addEventListener("click", function (e) {
-          var row = e.target.parentNode;
-          var selectedPlayer = row.getAttribute("data-player");
-
-          [].forEach.call(document.querySelectorAll(".breakdown"), function (el) {
-            el.style.display = "none";
-          }, false);
-
-          allResultsDiv.style.display = "none";
-          var playerBreakdownDiv = document.querySelector(".breakdown[data-player='" + selectedPlayer + "']");
-          playerBreakdownDiv.style.display = "block";
+        [].forEach.call(document.querySelectorAll(".breakdown"), function (el) {
+          el.style.display = "none";
         }, false);
-      });
 
-    </script>
-  <body>
-</html>
+        allResultsDiv.style.display = "none";
+        var playerBreakdownDiv = document.querySelector(".breakdown[data-player='" + selectedPlayer + "']");
+        playerBreakdownDiv.style.display = "block";
+      }, false);
+    });
+
+  </script>
+
+{% endblock %}

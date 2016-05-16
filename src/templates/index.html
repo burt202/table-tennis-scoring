@@ -1,22 +1,22 @@
-<html>
-  <head>
-    <title>Table Tennis Leagues</title>
-  </head>
-  <body>
-    <h1>Table Tennis Leagues</h1>
-    <div>Live league: <a href="{{ liveLeague }}.html">{{ liveLeague }}</a></div>
+{% extends 'layout.html' %}
 
-    {% if previousLeagues.length %}
-      <ul>
-        {% for league in previousLeagues %}
-          <li>
-            <a href="{{ league }}.html">{{ league }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No previous leagues</p>
-    {% endif %}
+{% block title %}Table Tennis Leagues{% endblock %}
 
-  <body>
-</html>
+{% block content %}
+
+  <h1>Table Tennis Leagues</h1>
+  <div>Live league: <a href="{{ liveLeague }}.html">{{ liveLeague }}</a></div>
+
+  {% if previousLeagues.length %}
+    <ul>
+      {% for league in previousLeagues %}
+        <li>
+          <a href="{{ league }}.html">{{ league }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No previous leagues</p>
+  {% endif %}
+
+{% endblock %}
