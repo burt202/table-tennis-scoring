@@ -7,32 +7,35 @@
   <h1>{{ name }}</h1>
   <p><a href="index.html">back</a></p>
 
-  <table class="standings">
-    <thead>
-      <tr>
-        <td></td>
-        <td>Player</td>
-        <td>Played</td>
-        <td>Wins</td>
-        <td>For</td>
-        <td>Against</td>
-        <td>Diff</td>
-      </tr>
-    </thead>
-    <tbody>
-      {% for row in standings %}
-        <tr data-player="{{ row.name }}">
-          <td>{{ loop.index }}</td>
-          <td>{{ row.name }}</td>
-          <td>{{ row.played }}</td>
-          <td>{{ row.wins }}</td>
-          <td>{{ row.for }}</td>
-          <td>{{ row.against }}</td>
-          <td>{{ row.diff }}</td>
+  <div class="standings">
+    <h2>Current Standings</h2>
+    <table>
+      <thead>
+        <tr>
+          <td></td>
+          <td>Player</td>
+          <td>Played</td>
+          <td>Wins</td>
+          <td>For</td>
+          <td>Against</td>
+          <td>Diff</td>
         </tr>
-      {% endfor %}
-    <tbody>
-  </table>
+      </thead>
+      <tbody>
+        {% for row in standings %}
+          <tr data-player="{{ row.name }}">
+            <td>{{ loop.index }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.played }}</td>
+            <td>{{ row.wins }}</td>
+            <td>{{ row.for }}</td>
+            <td>{{ row.against }}</td>
+            <td>{{ row.diff }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
   <div class="all-results">
     <h2>All Results</h2>
