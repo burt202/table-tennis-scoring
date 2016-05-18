@@ -25,7 +25,7 @@
         {% for row in standings %}
           <tr data-player="{{ row.name }}">
             <td>{{ loop.index }}</td>
-            <td>{{ row.name }}</td>
+            <td class="name-cell">{{ row.name }}</td>
             <td>{{ row.played }}</td>
             <td>{{ row.wins }}</td>
             <td>{{ row.for }}</td>
