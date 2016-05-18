@@ -13,7 +13,7 @@ Once the git hook has been copied and a league has been setup (see instructions 
 - add your league scaffolding (see below)
 - make sure your newly added league is marked as live (see below)
 - `git push`
-- goto `http://[your_github_username_here].github.io/table-tennis-scoring/
+- goto `http://[your_github_username_here].github.io/table-tennis-scoring/`
 - as and when results come in, commit them (in required format, see below) and push
 - your github pages site should reflect the results
 
