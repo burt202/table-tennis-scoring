@@ -37,7 +37,7 @@ gulp.task("process-league-templates", function () {
     if (leagueName === LIVE_LEAGUE) {
       liveLeague = {name: leagueName, displayName: leagueData.displayName};
     } else {
-      previousLeagues.append({name: leagueName, displayName: leagueData.displayName});
+      previousLeagues = R.append({name: leagueName, displayName: leagueData.displayName}, previousLeagues);
     }
 
     return gulp.src("src/templates/league.html")
