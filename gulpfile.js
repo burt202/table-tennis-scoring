@@ -8,6 +8,7 @@ var es = require("event-stream");
 var swig = require("gulp-swig");
 var data = require("gulp-data");
 var R = require("ramda");
+var cleanCSS = require("gulp-clean-css");
 
 var getDataForLeague = require("./src/get-data-for-league");
 
@@ -48,11 +49,18 @@ gulp.task("process-index-template", function () {
     .pipe(gulp.dest("build"));
 });
 
+gulp.task("minify-css", function () {
+  return gulp.src("src/css/app.css")
+    .pipe(cleanCSS())
+    .pipe(gulp.dest("build"));
+});
+
 gulp.task("build", function (callback) {
   runSequence(
     "clean",
     "process-index-template",
     "process-league-templates",
+    "minify-css",
     callback
   );
 });
