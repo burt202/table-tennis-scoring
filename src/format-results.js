@@ -106,10 +106,17 @@ function getPlayerBreakdowns (players, results) {
   )(results);
 }
 
-module.exports = function (players, results) {
-  return {
+function formatMetaData (metaData) {
+  return R.merge(metaData, {
+    startDate: (metaData.startDate) ? moment(metaData.startDate, "YYYY-MM-DD").format("MMMM Do YYYY") : null,
+    endDate: (metaData.endDate) ? moment(metaData.endDate, "YYYY-MM-DD").format("MMMM Do YYYY"): null
+  });
+}
+
+module.exports = function (metaData, players, results) {
+  return R.merge(formatMetaData(metaData), {
     standings: getStandings(players, results),
     allResults: getAllResults(results),
     playerBreakdowns: getPlayerBreakdowns(players, results)
-  };
+  });
 }

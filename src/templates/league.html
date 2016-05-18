@@ -1,10 +1,15 @@
 {% extends 'layout.html' %}
 
-{% block title %}{{ name }}{% endblock %}
+{% block title %}{{ displayName }}{% endblock %}
 
 {% block content %}
 
-  <h1>{{ name }}</h1>
+  <h1>{{ displayName }}</h1>
+
+  {% if startDate and endDate %}
+    <p>{{ startDate }} - {{ endDate }}</p>
+  {% endif %}
+
   <p><a href="index.html">back</a></p>
 
   <div class="standings">

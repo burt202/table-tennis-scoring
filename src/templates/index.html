@@ -5,13 +5,13 @@
 {% block content %}
 
   <h1>Table Tennis Leagues</h1>
-  <p>Live league: <a href="{{ liveLeague }}.html">{{ liveLeague }}</a></p>
+  <p>Live league: <a href="{{ liveLeague.name }}.html">{{ liveLeague.displayName }}</a></p>
 
   {% if previousLeagues.length %}
     <ul>
       {% for league in previousLeagues %}
         <li>
-          <a href="{{ league }}.html">{{ league }}</a>
+          <a href="{{ league.name }}.html">{{ league.displayName }}</a>
         </li>
       {% endfor %}
     </ul>

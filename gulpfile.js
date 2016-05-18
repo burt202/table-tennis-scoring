@@ -13,6 +13,8 @@ var cleanCSS = require("gulp-clean-css");
 var getDataForLeague = require("./src/get-data-for-league");
 
 var LIVE_LEAGUE = "test";
+var liveLeague = null;
+var previousLeagues = [];
 
 var basePath = __dirname + "/leagues";
 var leagues = fs.readdirSync(basePath);
@@ -32,6 +34,12 @@ gulp.task("process-league-templates", function () {
   return es.merge(leagues.map(function (leagueName) {
     var leagueData = getDataForLeague(basePath, leagueName);
 
+    if (leagueName === LIVE_LEAGUE) {
+      liveLeague = {name: leagueName, displayName: leagueData.displayName};
+    } else {
+      previousLeagues.append({name: leagueName, displayName: leagueData.displayName});
+    }
+
     return gulp.src("src/templates/league.html")
       .pipe(data(R.merge({name: leagueName}, leagueData)))
       .pipe(swig())
@@ -41,10 +49,8 @@ gulp.task("process-league-templates", function () {
 });
 
 gulp.task("process-index-template", function () {
-  var previousLeagues = R.without(LIVE_LEAGUE, leagues);
-
   return gulp.src("./src/templates/index.html")
-    .pipe(data({liveLeague: LIVE_LEAGUE, previousLeagues: previousLeagues}))
+    .pipe(data({liveLeague: liveLeague, previousLeagues: previousLeagues}))
     .pipe(swig())
     .pipe(gulp.dest("build"));
 });
@@ -58,8 +64,8 @@ gulp.task("minify-css", function () {
 gulp.task("build", function (callback) {
   runSequence(
     "clean",
-    "process-index-template",
     "process-league-templates",
+    "process-index-template",
     "minify-css",
     callback
   );
