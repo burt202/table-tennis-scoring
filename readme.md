@@ -15,7 +15,7 @@ Once the git hook has been copied and a league has been setup (see instructions 
 - `git push`
 - goto `http://[your_github_username_here].github.io/table-tennis-scoring/
 - as and when results come in, commit them (in required format, see below) and push
-- your github pages should reflect the results
+- your github pages site should reflect the results
 
 ### Adding A League
 
@@ -24,7 +24,7 @@ Coming soon
 ### Adding Results
 
 - results are grouped into files that represent games played on certain dates
-- results file names should be in the format of YYYYMMDD
+- results file names should be in the format of YYYYMMDD with no extension
 - results file contents should be in a csv format where each row has a winner, loser and a score, in that order
 - the winner and loser names must match a player added to league for it to be counted as part of the standings
 
