@@ -19,7 +19,11 @@ Once the git hook has been copied and a league has been setup (see instructions 
 
 ### Adding A League
 
-Coming soon
+- create a directory in `leagues/` with the name of your league (this name shouldnt contain spaces)
+- within this new directory, create a directory called `results`, and 2 other files called `meta` and `players`
+- `players` should contain all players involved in the league where each players name is separated by a carriage return
+- `meta` in is json format where the only required property is `displayName`, this value is used within the generated templates
+- other `meta` properties include `startDate` and `endDate` to surface when a league is to start and finish
 
 ### Adding Results
 
