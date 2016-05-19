@@ -5,7 +5,8 @@
   "license": "ISC",
   "repository": "https://github.com/burt202/table-tennis-scoring",
   "scripts": {
-    "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push"
+    "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
+    "add-league": "./mkleague"
   },
   "devDependencies": {
     "eslint": "^2.9.0",

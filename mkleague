@@ -6,7 +6,7 @@ while [ -z "$league_name" ]; do
 done
 
 default_short_name=$(echo "${league_name,,}" | sed -e 's/[^a-z0-9]\+/-/g' | sed -e 's/^-\|-$//g')
-read -p "Please enter the legue name for the filesystem (default: \"$default_short_name\"): " short_name
+read -p "Please enter the league name for the filesystem (default: \"$default_short_name\"): " short_name
 [ -z "$short_name" ] && short_name=$default_short_name
 
 mkdir -pv "leagues/$short_name/results"
