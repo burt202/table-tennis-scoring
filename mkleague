@@ -1,0 +1,17 @@
+#!/bin/bash
+
+league_name=$@
+while [ -z "$league_name" ]; do
+  read -p "Please enter the league name: " league_name
+done
+
+default_short_name=$(echo "${league_name,,}" | sed -e 's/[^a-z0-9]\+/-/g' | sed -e 's/^-\|-$//g')
+read -p "Please enter the legue name for the filesystem (default: \"$default_short_name\"): " short_name
+[ -z "$short_name" ] && short_name=$default_short_name
+
+mkdir -pv "leagues/$short_name/results"
+touch "leagues/$short_name/meta"
+touch "leagues/$short_name/players"
+
+escaped_league_name=$(echo "$league_name" | sed -s 's/"/\\"/g')
+echo -e "{\n  \"displayName\": \"$escaped_league_name\"\n}" > "leagues/$short_name/meta"
