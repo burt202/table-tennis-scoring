@@ -10,22 +10,23 @@ Once the git hook has been copied and a league has been setup (see instructions 
 - `npm i`
 - `npm run add-hook`
 - `rm -rf leagues/test`
-- add your league scaffolding (see below)
+- `npm run add-league`
+- add players to your league (see below)
 - make sure your newly added league is marked as live (see below)
 - `git push`
 - goto `http://[your_github_username_here].github.io/table-tennis-scoring/`
 - as and when results come in, commit them (in required format, see below) and push
 - your github pages site should reflect the results
 
-### Adding A League
+### Adding Players
 
-Note: You can run `./mkleague` to automate most of these steps.
+- players should be added to the `players` file within your selected leagues directory
+- each players name is separated by a carriage return
 
-- create a directory in `leagues/` with the name of your league (this name shouldnt contain spaces)
-- within this new directory, create a directory called `results`, and 2 other files called `meta` and `players`
-- `players` should contain all players involved in the league where each players name is separated by a carriage return
-- `meta` in is json format where the only required property is `displayName`, this value is used within the generated templates
-- other `meta` properties include `startDate` and `endDate` to surface when a league is to start and finish
+### Marking A League As Live
+
+- in `gulpfile.js` update the LIVE_LEAGUE constant to the name of the league that you want to be marked as live
+- NOTE: the value must match the directory name of the selected league
 
 ### Adding Results
 
@@ -34,7 +35,10 @@ Note: You can run `./mkleague` to automate most of these steps.
 - results file contents should be in a csv format where each row has a winner, loser and a score, in that order
 - the winner and loser names must match a player added to league for it to be counted as part of the standings
 
-### Marking A League As Live
+### MetaData Propeties
 
-- in `gulpfile.js` update the LIVE_LEAGUE constant to the name of the league that you want to be marked as live
-- NOTE: the value must match the directory name of the selected league
+Add or change these values as you wish.
+
+- displayName (required) : the front-facing name of your league
+- startDate (optional) : to signify when the league is to start
+- endDate (optional) : to signify when the league is to end

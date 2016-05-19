@@ -2,7 +2,7 @@
 
 league_name=$@
 while [ -z "$league_name" ]; do
-  read -p "Please enter the league name: " league_name
+  read -p "Please enter the league display name: " league_name
 done
 
 default_short_name=$(echo "${league_name,,}" | sed -e 's/[^a-z0-9]\+/-/g' | sed -e 's/^-\|-$//g')
