@@ -17,7 +17,7 @@ var liveLeague = null;
 var previousLeagues = [];
 
 var basePath = __dirname + "/leagues";
-var leagues = fs.readdirSync(basePath);
+var leagues = R.without(".gitkeep", fs.readdirSync(basePath));
 
 gulp.task("default", ["watch"]);
 

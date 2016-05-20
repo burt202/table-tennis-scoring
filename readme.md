@@ -48,3 +48,9 @@ Occasionally, when there has been updates in this repo, you may want to update y
 - `git add remote forked git@github.com:burt202/table-tennis-scoring.git`
 - `git pull forked master`
 - `git push`
+
+### Example
+
+- `cp -avr examples/test/ leagues/test`
+- `gulp build`
+- open `build/index.html` in a browser
