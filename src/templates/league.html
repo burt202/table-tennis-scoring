@@ -85,7 +85,7 @@
 
     var allResultsDiv = document.querySelector(".all-results");
 
-    [].forEach.call(document.querySelectorAll(".standings tbody td"), function (el) {
+    [].forEach.call(document.querySelectorAll(".standings tbody td a"), function (el) {
       el.addEventListener("click", function (e) {
         var row = e.target.parentNode.parentNode;
         var selectedPlayer = row.getAttribute("data-player");
