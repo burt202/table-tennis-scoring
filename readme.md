@@ -21,7 +21,7 @@ Once the git hook has been copied and a league has been setup (see instructions 
 ### Adding Players
 
 - players should be added to the `players` file within your selected leagues directory
-- each players name is separated by a carriage return
+- each player should be separated by a new line
 
 ### Marking A League As Live
 
@@ -33,7 +33,7 @@ Once the git hook has been copied and a league has been setup (see instructions 
 - results are grouped into files that represent games played on certain dates
 - results file names should be in the format of YYYYMMDD with no extension
 - results file contents should be in a csv format where each row has a winner, loser and a score, in that order
-- the winner and loser names must match a player added to league for it to be counted as part of the standings
+- NOTE: the winner and loser names must match a player added to league for it to be counted as part of the standings
 
 ### MetaData Propeties
 
