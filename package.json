@@ -8,6 +8,16 @@
     "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
     "add-league": "./mkleague"
   },
+  "keywords": [
+    "table",
+    "tennis",
+    "table-tennis",
+    "league",
+    "fixture",
+    "generator",
+    "static",
+    "gh-pages"
+  ],
   "devDependencies": {
     "eslint": "^2.9.0",
     "event-stream": "^3.3.2",
