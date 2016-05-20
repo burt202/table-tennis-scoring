@@ -1,6 +1,6 @@
 {
   "name": "table-tennis-scoring",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A league and fixture generator for table tennis",
   "license": "ISC",
   "repository": "https://github.com/burt202/table-tennis-scoring",
