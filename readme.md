@@ -42,3 +42,11 @@ Add or change these values as you wish.
 - displayName (required) : the front-facing name of your league
 - startDate (optional) : to signify when the league is to start
 - endDate (optional) : to signify when the league is to end
+
+### Update Forked Repo
+
+Occasionally, when there has been updates in this repo, you may want to update your forked repo with the changes. To do this follow the steps below.
+
+- `git add remote forked git@github.com:burt202/table-tennis-scoring.git`
+- `git pull forked master`
+- `git push`
