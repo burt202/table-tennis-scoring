@@ -35,7 +35,7 @@
         
           <tr data-player="David M">
             <td>1</td>
-            <td class="name-cell">David M</td>
+            <td><a href="#breakdown">David M</a></td>
             <td>2</td>
             <td>2</td>
             <td>4</td>
@@ -45,7 +45,7 @@
         
           <tr data-player="Mark W">
             <td>2</td>
-            <td class="name-cell">Mark W</td>
+            <td><a href="#breakdown">Mark W</a></td>
             <td>2</td>
             <td>1</td>
             <td>3</td>
@@ -55,7 +55,7 @@
         
           <tr data-player="Aaron B">
             <td>3</td>
-            <td class="name-cell">Aaron B</td>
+            <td><a href="#breakdown">Aaron B</a></td>
             <td>2</td>
             <td>1</td>
             <td>3</td>
@@ -65,7 +65,7 @@
         
           <tr data-player="JP">
             <td>4</td>
-            <td class="name-cell">JP</td>
+            <td><a href="#breakdown">JP</a></td>
             <td>3</td>
             <td>1</td>
             <td>3</td>
@@ -75,7 +75,7 @@
         
           <tr data-player="Tom H">
             <td>5</td>
-            <td class="name-cell">Tom H</td>
+            <td><a href="#breakdown">Tom H</a></td>
             <td>3</td>
             <td>1</td>
             <td>3</td>
@@ -85,7 +85,7 @@
         
           <tr data-player="Ignacio">
             <td>6</td>
-            <td class="name-cell">Ignacio</td>
+            <td><a href="#breakdown">Ignacio</a></td>
             <td>0</td>
             <td>0</td>
             <td>0</td>
@@ -124,6 +124,8 @@
       
     
   </div>
+
+  <a name="breakdown"></a>
 
   
     <div class="breakdown" data-player="Aaron B" style="display: none">
@@ -270,7 +272,7 @@
 
     [].forEach.call(document.querySelectorAll(".standings tbody td"), function (el) {
       el.addEventListener("click", function (e) {
-        var row = e.target.parentNode;
+        var row = e.target.parentNode.parentNode;
         var selectedPlayer = row.getAttribute("data-player");
 
         [].forEach.call(document.querySelectorAll(".breakdown"), function (el) {
