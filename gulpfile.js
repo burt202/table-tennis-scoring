@@ -31,6 +31,8 @@ gulp.task("clean", function () {
 });
 
 gulp.task("process-league-templates", function () {
+  if (!leagues.length) return;
+
   return es.merge(leagues.map(function (leagueName) {
     var leagueData = getDataForLeague(basePath, leagueName);
 
