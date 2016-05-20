@@ -40,6 +40,7 @@ Add or change these values as you wish.
 - displayName (required) : the front-facing name of your league
 - startDate (optional) : to signify when the league is to start
 - endDate (optional) : to signify when the league is to end
+- description (optional) : a good place for stating rules etc
 
 ### Update Forked Repo
 

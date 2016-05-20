@@ -6,11 +6,15 @@
 
   <h1>{{ displayName }}</h1>
 
+  <p><a href="index.html">back</a></p>
+
   {% if startDate and endDate %}
     <p>{{ startDate }} - {{ endDate }}</p>
   {% endif %}
 
-  <p><a href="index.html">back</a></p>
+  {% if description %}
+    <p>{{ description }}</p>
+  {% endif %}
 
   <div class="standings">
     <h2>Current Standings</h2>
