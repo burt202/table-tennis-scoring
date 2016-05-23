@@ -46,7 +46,7 @@ Add or change these values as you wish.
 
 Occasionally, when there has been updates in this repo, you may want to update your forked repo with the changes. To do this follow the steps below.
 
-- `git add remote forked git@github.com:burt202/table-tennis-scoring.git`
+- `git remote add forked git@github.com:burt202/table-tennis-scoring.git`
 - `git pull forked master`
 - `git push`
 
