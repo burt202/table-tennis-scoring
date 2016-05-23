@@ -88,12 +88,12 @@ function getPlayerBreakdowns (players, results) {
       var score = resultParts[2];
 
       acc[winner] = R.evolve({
-        results: R.append({winner: winner, loser: loser, score: score}),
+        results: R.prepend({winner: winner, loser: loser, score: score}),
         yetToPlay: R.without([loser])
       }, acc[winner]);
 
       acc[loser] = R.evolve({
-        results: R.append({winner: winner, loser: loser, score: score}),
+        results: R.prepend({winner: winner, loser: loser, score: score}),
         yetToPlay: R.without([winner])
       }, acc[loser]);
 
