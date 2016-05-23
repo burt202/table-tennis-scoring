@@ -117,6 +117,7 @@ module.exports = function (metaData, players, results) {
   return R.merge(formatMetaData(metaData), {
     standings: getStandings(players, results),
     allResults: getAllResults(results),
+    resultsTotal: results.length,
     playerBreakdowns: getPlayerBreakdowns(players, results)
   });
 }
