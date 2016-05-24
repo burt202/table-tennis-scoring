@@ -7,8 +7,8 @@
   "scripts": {
     "example": "cp -avr examples/test/ leagues/test; gulp build",
     "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
-    "add-league": "./mkleague",
-    "choose-live": "./chooselive"
+    "add-league": "./scripts/addleague",
+    "choose-live": "./scripts/chooselive"
   },
   "keywords": [
     "table",
