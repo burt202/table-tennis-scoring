@@ -1,0 +1,15 @@
+#!/bin/bash
+
+leaguesTotal=`ls leagues/ --ignore="LIVE_LEAGUE" | wc -l`
+if [ "$leaguesTotal" = 0 ]
+then
+  echo "A league must exist first - use 'npm run add-league'"
+  exit
+fi
+
+while [ -z "$league_name" ]; do
+  read -p "Please enter the filesystem name for the league: " league_name
+done
+
+touch "leagues/LIVE_LEAGUE"
+echo -e "$league_name" > "leagues/LIVE_LEAGUE"
