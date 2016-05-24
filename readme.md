@@ -52,6 +52,5 @@ Occasionally, when there has been updates in this repo, you may want to update y
 
 ### Example
 
-- `cp -avr examples/test/ leagues/test`
-- `gulp build`
+- `npm run example` - this copies the test league into the `leagues` directory, and then builds it
 - open `build/index.html` in a browser

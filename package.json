@@ -5,6 +5,7 @@
   "license": "ISC",
   "repository": "https://github.com/burt202/table-tennis-scoring",
   "scripts": {
+    "example": "cp -avr examples/test/ leagues/test; gulp build",
     "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
     "add-league": "./mkleague"
   },
