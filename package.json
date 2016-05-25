@@ -8,6 +8,7 @@
     "example": "cp -avr examples/test/ leagues/test; gulp build",
     "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
     "add-league": "./scripts/addleague",
+    "add-result": "./scripts/addresult",
     "choose-live": "./scripts/chooselive"
   },
   "keywords": [

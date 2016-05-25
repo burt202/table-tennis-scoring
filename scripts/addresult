@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ ! -f "leagues/LIVE_LEAGUE" ]; then
+  echo "A live league must be chosen - use 'npm run choose-live'"
+  exit 1
+fi
+
+liveLeagueName=$(head -n 1 leagues/LIVE_LEAGUE)
+
+if [ ! -f "leagues/$liveLeagueName/players" ]; then
+  echo "Live league does not exist - use 'npm run add-league'"
+  exit 1
+fi
+
+while [ -z "$winner" ]; do
+  read -p "Please enter the name of the winner: " winner
+done
+
+while [ -z "$loser" ]; do
+  read -p "Please enter the name of the loser: " loser
+done
+
+while [ -z "$score" ]; do
+  read -p "Please enter the score: " score
+done
+
+currentDateFormatted=$(date +%Y%m%d)
+resultsFile="leagues/$liveLeagueName/results/$currentDateFormatted"
+
+echo -e "$winner,$loser,$score" >> $resultsFile
