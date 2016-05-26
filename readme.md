@@ -23,9 +23,7 @@ Once the git hook has been copied and a league has been setup (see instructions 
 
 ### Adding Results
 
-- results are grouped into files that represent games played on certain dates
-- results file names should be in the format of YYYYMMDD with no extension
-- results file contents should be in a csv format where each row has a winner, loser and a score, in that order
+- `npm run add-result`
 - NOTE: the winner and loser names must match a player added to league for it to be counted as part of the standings
 
 ### MetaData Propeties
