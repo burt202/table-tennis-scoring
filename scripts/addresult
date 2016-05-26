@@ -26,5 +26,7 @@ done
 
 currentDateFormatted=$(date +%Y%m%d)
 resultsFile="leagues/$liveLeagueName/results/$currentDateFormatted"
+content="$winner,$loser,$score"
 
-echo -e "$winner,$loser,$score" >> $resultsFile
+echo -e $content >> $resultsFile
+echo -e "Result added: $content"
