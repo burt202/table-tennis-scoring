@@ -11,9 +11,12 @@ module.exports = function (basePath, leagueName) {
   var results = resultFiles.map(function (fileName) {
     var rows = fs.readFileSync(leaguePath + "/results/" + fileName, "utf8").split("\n");
 
-    return rows.map(function (row) {
-      return row + "," + fileName;
-    });
+    return R.pipe(
+      R.reject(R.compose(R.equals(0), R.length)),
+      R.map(function (row) {
+        return row + "," + fileName;
+      })
+    )(rows);
   });
 
   return formatResults(metaData, players, R.flatten(results));
