@@ -10,7 +10,7 @@ var data = require("gulp-data");
 var R = require("ramda");
 var cleanCSS = require("gulp-clean-css");
 
-var getDataForLeague = require("./src/get-data-for-league");
+var getDataForLeague = require("./src/js/get-data-for-league");
 
 var leagues = [];
 var basePath = __dirname + "/leagues";
