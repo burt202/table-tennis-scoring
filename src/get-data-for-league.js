@@ -1,6 +1,18 @@
 var fs = require("fs");
 var R = require("ramda");
-var formatResults = require("./format-results");
+var moment = require("moment");
+var singlesFormat = require("./format-results");
+
+var typeMap = {
+  singles: singlesFormat
+};
+
+function formatMetaData (metaData) {
+  return R.merge(metaData, {
+    startDate: (metaData.startDate) ? moment(metaData.startDate, "YYYY-MM-DD").format("MMMM Do YYYY") : null,
+    endDate: (metaData.endDate) ? moment(metaData.endDate, "YYYY-MM-DD").format("MMMM Do YYYY"): null
+  });
+}
 
 module.exports = function (basePath, leagueName) {
   var leaguePath = basePath + "/" + leagueName;
@@ -19,5 +31,13 @@ module.exports = function (basePath, leagueName) {
     )(rows);
   });
 
-  return formatResults(metaData, players, R.flatten(results));
+  var leagueType = metaData.type || "singles";
+  var formatter = typeMap[leagueType](players, R.flatten(results));
+
+  return R.merge(formatMetaData(metaData), {
+    resultsTotal: results.length,
+    standings: formatter.getStandings(),
+    allResults: formatter.getAllResults(),
+    playerBreakdowns: formatter.getPlayerBreakdowns()
+  });
 }
