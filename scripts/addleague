@@ -16,3 +16,4 @@ touch "leagues/$short_name/players"
 
 escaped_league_name=$(echo "$league_name" | sed -s 's/"/\\"/g')
 echo -e "{\n  \"displayName\": \"$escaped_league_name\"\n}" > "leagues/$short_name/meta"
+echo -e "League added: $escaped_league_name"

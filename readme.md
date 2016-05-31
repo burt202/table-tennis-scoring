@@ -31,9 +31,9 @@ Once the git hook has been copied and a league has been setup (see instructions 
 Add or change these values as you wish.
 
 - displayName (required) : the front-facing name of your league
-- startDate (optional) : to signify when the league is to start
-- endDate (optional) : to signify when the league is to end
-- description (optional) : a good place for stating rules etc
+- startDate (optional) : to signify when the league is to start, displayed at the top of the league template
+- endDate (optional) : to signify when the league is to end, displayed at the top of the league template
+- description (optional) : a good place for stating rules etc, displayed at the top of the league template
 
 ### Update Forked Repo
 

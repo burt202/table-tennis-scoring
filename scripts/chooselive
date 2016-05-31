@@ -12,3 +12,4 @@ done
 
 touch "leagues/LIVE_LEAGUE"
 echo -e "$league_name" > "leagues/LIVE_LEAGUE"
+echo -e "Live league chosen: $league_name"
