@@ -1,10 +1,9 @@
 var fs = require("fs");
 var R = require("ramda");
 var moment = require("moment");
-var singlesFormat = require("./format-results");
 
 var typeMap = {
-  singles: singlesFormat
+  singles: require("./singles")
 };
 
 function formatMetaData (metaData) {
