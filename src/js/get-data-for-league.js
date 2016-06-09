@@ -1,16 +1,32 @@
 var fs = require("fs");
 var R = require("ramda");
-var moment = require("moment");
 
 var typeMap = {
   singles: require("./singles")
 };
 
-function formatMetaData (metaData) {
+var DEFAULT_LEAGUE_TYPE = "singles";
+var VALID_LEAGUE_TYPES = R.keys(typeMap);
+
+function validateMetaData (metaData) {
   return R.merge(metaData, {
-    startDate: (metaData.startDate) ? moment(metaData.startDate, "YYYY-MM-DD").format("MMMM Do YYYY") : null,
-    endDate: (metaData.endDate) ? moment(metaData.endDate, "YYYY-MM-DD").format("MMMM Do YYYY"): null
+    type: ensureValidLeagueType()
   });
+}
+
+function extractResults (fileName, rows) {
+  return R.pipe(
+    R.reject(R.compose(R.equals(0), R.length)),
+    R.map(function (row) {
+      return row + "," + fileName;
+    })
+  )(rows)
+}
+
+function ensureValidLeagueType (type) {
+  var leagueType = type || DEFAULT_LEAGUE_TYPE;
+  if (!R.contains(leagueType, VALID_LEAGUE_TYPES)) leagueType = DEFAULT_LEAGUE_TYPE;
+  return leagueType;
 }
 
 module.exports = function (basePath, leagueName) {
@@ -21,22 +37,9 @@ module.exports = function (basePath, leagueName) {
 
   var results = resultFiles.map(function (fileName) {
     var rows = fs.readFileSync(leaguePath + "/results/" + fileName, "utf8").split("\n");
-
-    return R.pipe(
-      R.reject(R.compose(R.equals(0), R.length)),
-      R.map(function (row) {
-        return row + "," + fileName;
-      })
-    )(rows);
+    return extractResults(fileName, rows);
   });
 
-  var leagueType = metaData.type || "singles";
-  var formatter = typeMap[leagueType](players, R.flatten(results));
-
-  return R.merge(formatMetaData(metaData), {
-    resultsTotal: results.length,
-    standings: formatter.getStandings(),
-    allResults: formatter.getAllResults(),
-    playerBreakdowns: formatter.getPlayerBreakdowns()
-  });
+  var validatedMetaData = validateMetaData(metaData);
+  return typeMap[validatedMetaData.type](validatedMetaData, players, R.flatten(results));
 }

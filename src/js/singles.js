@@ -1,7 +1,7 @@
 var R = require("ramda");
 var moment = require("moment");
 
-module.exports = function (players, results) {
+module.exports = function (metaData, players, results) {
 
   function getStandings () {
     var base = R.reduce(function (acc, val) {
@@ -108,9 +108,22 @@ module.exports = function (players, results) {
     )(results);
   }
 
-  return {
-    getStandings: getStandings,
-    getAllResults: getAllResults,
-    getPlayerBreakdowns: getPlayerBreakdowns
+  function formatMetaData () {
+    return R.merge(metaData, {
+      startDate: (metaData.startDate) ? moment(metaData.startDate, "YYYY-MM-DD").format("MMMM Do YYYY") : null,
+      endDate: (metaData.endDate) ? moment(metaData.endDate, "YYYY-MM-DD").format("MMMM Do YYYY") : null
+    });
+  }
+
+  var leagueData = {
+    resultsTotal: results.length,
+    standings: getStandings(),
+    allResults: getAllResults(),
+    playerBreakdowns: getPlayerBreakdowns()
   };
+
+  return R.mergeAll([
+    formatMetaData(),
+    leagueData
+  ])
 }

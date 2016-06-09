@@ -40,7 +40,7 @@ gulp.task("process-league-templates", function () {
     var leagueData = getDataForLeague(basePath, leagueName);
     leagues = R.append({name: leagueName, displayName: leagueData.displayName}, leagues);
 
-    return gulp.src("src/templates/league.html")
+    return gulp.src("src/templates/" + leagueData.type + ".html")
       .pipe(data(R.merge({name: leagueName}, leagueData)))
       .pipe(swig())
       .pipe(rename(leagueName + ".html"))
