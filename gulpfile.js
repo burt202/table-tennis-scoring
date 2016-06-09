@@ -1,4 +1,3 @@
-var fs = require("fs");
 var gulp = require("gulp");
 var rename = require("gulp-rename");
 var runSequence = require("run-sequence");
@@ -10,19 +9,9 @@ var data = require("gulp-data");
 var R = require("ramda");
 var cleanCSS = require("gulp-clean-css");
 
-var getDataForLeague = require("./src/js/get-data-for-league");
-
-var leagues = [];
 var basePath = __dirname + "/leagues";
-var liveLeagueName;
-
-try {
-  liveLeagueName = fs.readFileSync(basePath + "/LIVE_LEAGUE");
-} catch (e) {
-  liveLeagueName = null;
-}
-
-var leagueNames = R.without([".gitkeep", "LIVE_LEAGUE"], fs.readdirSync(basePath));
+var leagues = require("./src/js/get-leagues")(basePath);
+var getDataForLeague = require("./src/js/get-data-for-league")(basePath);
 
 gulp.task("default", ["watch"]);
 
@@ -36,25 +25,20 @@ gulp.task("clean", function () {
 });
 
 gulp.task("process-league-templates", function () {
-  return es.merge(leagueNames.map(function (leagueName) {
-    var leagueData = getDataForLeague(basePath, leagueName);
-    leagues = R.append({name: leagueName, displayName: leagueData.displayName}, leagues);
+  return es.merge(leagues.all.map(function (league) {
+    var leagueData = getDataForLeague(league.name, league.meta);
 
     return gulp.src("src/templates/" + leagueData.type + ".html")
-      .pipe(data(R.merge({name: leagueName}, leagueData)))
+      .pipe(data(R.merge(league, leagueData)))
       .pipe(swig())
-      .pipe(rename(leagueName + ".html"))
+      .pipe(rename(league.name + ".html"))
       .pipe(gulp.dest("build"));
   }));
 });
 
 gulp.task("process-index-template", function () {
-  var liveLeague = R.find(R.propEq("name", liveLeagueName))(leagues);
-  if (!liveLeague) liveLeague = R.head(leagues);
-  var previousLeagues = R.reject(R.propEq("name", liveLeague.name), leagues);
-
   return gulp.src("./src/templates/index.html")
-    .pipe(data({liveLeague: liveLeague, previousLeagues: previousLeagues}))
+    .pipe(data({liveLeague: leagues.live, previousLeagues: leagues.previous}))
     .pipe(swig())
     .pipe(gulp.dest("build"));
 });
@@ -66,7 +50,7 @@ gulp.task("minify-css", function () {
 });
 
 gulp.task("build", function (callback) {
-  if (!leagueNames.length) return;
+  if (!leagues.all.length) return;
 
   runSequence(
     "clean",

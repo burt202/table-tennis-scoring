@@ -29,17 +29,19 @@ function ensureValidLeagueType (type) {
   return leagueType;
 }
 
-module.exports = function (basePath, leagueName) {
-  var leaguePath = basePath + "/" + leagueName;
-  var players = fs.readFileSync(leaguePath + "/players", "utf8").split("\n");
-  var metaData = JSON.parse(fs.readFileSync(leaguePath + "/meta", "utf8"));
-  var resultFiles = fs.readdirSync(leaguePath + "/results");
+module.exports = function (basePath) {
 
-  var results = resultFiles.map(function (fileName) {
-    var rows = fs.readFileSync(leaguePath + "/results/" + fileName, "utf8").split("\n");
-    return extractResults(fileName, rows);
-  });
+  return function (leagueName, metaData) {
+    var leaguePath = basePath + "/" + leagueName;
+    var players = fs.readFileSync(leaguePath + "/players", "utf8").split("\n");
+    var resultFiles = fs.readdirSync(leaguePath + "/results");
 
-  var validatedMetaData = validateMetaData(metaData);
-  return typeMap[validatedMetaData.type](validatedMetaData, players, R.flatten(results));
+    var results = resultFiles.map(function (fileName) {
+      var rows = fs.readFileSync(leaguePath + "/results/" + fileName, "utf8").split("\n");
+      return extractResults(fileName, rows);
+    });
+
+    var validatedMetaData = validateMetaData(metaData);
+    return typeMap[validatedMetaData.type](validatedMetaData, players, R.flatten(results));
+  }
 }
