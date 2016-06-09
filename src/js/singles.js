@@ -115,15 +115,73 @@ module.exports = function (metaData, players, results) {
     });
   }
 
-  var leagueData = {
-    resultsTotal: results.length,
-    standings: getStandings(),
-    allResults: getAllResults(),
-    playerBreakdowns: getPlayerBreakdowns()
-  };
+  function validateResults () {
+    var errors = [];
 
-  return R.mergeAll([
-    formatMetaData(),
-    leagueData
-  ])
+    var invalidPlayersInResults = R.pipe(
+      R.reduce(function (acc, val) {
+        var resultParts = R.split(",", val);
+        var winner = resultParts[0];
+        var loser = resultParts[1];
+
+        return R.concat(acc, [winner, loser]);
+      }, []),
+      R.uniq,
+      R.difference(R.__, players)
+    )(results)
+
+    if (invalidPlayersInResults.length) {
+      invalidPlayersInResults.forEach(function (player) {
+        errors.push("Player '" + player + "' in result for league '" + metaData.displayName + "' doesnt exist");
+      })
+    }
+
+    var duplicateResults = R.pipe(
+      R.reduce(function (acc, val) {
+        var resultParts = R.split(",", val);
+        var sortAsc = R.comparator(function (a, b) { return a < b});
+
+        var key = R.pipe(
+          R.take(2),
+          R.sort(sortAsc),
+          R.join(",")
+        )(resultParts);
+
+        if (!acc[key]) acc[key] = 0;
+        acc[key] += 1;
+        return acc;
+      }, {}),
+      R.toPairs,
+      R.filter(function (result) {
+        return result[1] > 1;
+      }),
+      R.map(R.head)
+    )(results);
+
+    if (duplicateResults.length) {
+      duplicateResults.forEach(function (combination) {
+        errors.push("Duplicate result found for combination: " + combination);
+      })
+    }
+
+    return errors;
+  }
+
+  var errors = validateResults();
+
+  if (errors.length) {
+    throw new Error(JSON.stringify(errors[0]));
+  } else {
+    var leagueData = {
+      resultsTotal: results.length,
+      standings: getStandings(),
+      allResults: getAllResults(),
+      playerBreakdowns: getPlayerBreakdowns()
+    };
+
+    return R.mergeAll([
+      formatMetaData(),
+      leagueData
+    ]);
+  }
 }
