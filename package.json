@@ -9,7 +9,8 @@
     "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
     "add-league": "./scripts/addleague",
     "add-result": "./scripts/addresult",
-    "choose-live": "./scripts/chooselive"
+    "choose-live": "./scripts/chooselive",
+    "test": "mocha"
   },
   "keywords": [
     "table",
