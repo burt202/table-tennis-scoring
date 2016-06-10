@@ -22,6 +22,7 @@
     "gh-pages"
   ],
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^2.9.0",
     "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
@@ -31,6 +32,7 @@
     "gulp-gh-pages": "^0.5.4",
     "gulp-rename": "^1.2.2",
     "gulp-swig": "^0.8.0",
+    "mocha": "^2.5.3",
     "moment": "^2.13.0",
     "ramda": "^0.21.0",
     "run-sequence": "^1.1.5"
