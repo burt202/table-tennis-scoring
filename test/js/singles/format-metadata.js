@@ -1,9 +1,10 @@
 var chai = require("chai");
 var expect = chai.expect;
 
-var formatMetadata = require("../../../src/js/singles/format-metadata");
+var path = "singles/format-metadata";
+var formatMetadata = require("../../../src/js/" + path);
 
-describe("Format Metadata", function () {
+describe(path, function () {
 
   it("should format the startDate", function () {
     var res = formatMetadata({startDate: "2016-06-06"})

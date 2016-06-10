@@ -1,9 +1,10 @@
 var chai = require("chai");
 var expect = chai.expect;
 
-var getAllResults = require("../../../src/js/singles/get-all-results");
+var path = "singles/get-all-results";
+var getAllResults = require("../../../src/js/" + path);
 
-describe("Get All Results", function () {
+describe(path, function () {
 
   it("should group results by date", function () {
     var mockResults = [

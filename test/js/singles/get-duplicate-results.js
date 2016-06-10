@@ -1,9 +1,10 @@
 var chai = require("chai");
 var expect = chai.expect;
 
-var getDuplicateResults = require("../../../src/js/singles/get-duplicate-results");
+var path = "singles/get-duplicate-results";
+var getDuplicateResults = require("../../../src/js/" + path);
 
-describe("Get Duplicate Results", function () {
+describe(path, function () {
 
   it("should return empty array when there are no duplicates", function () {
     var mockResults = [
