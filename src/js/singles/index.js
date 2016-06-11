@@ -13,10 +13,10 @@ var validators = {
 
 module.exports = function (metaData, players, results) {
 
-  var errors = validateData(validators, metaData, players, results);
+  var errors = validateData(validators, players, results);
 
   if (errors.length) {
-    throw new Error(JSON.stringify(errors[0]));
+    throw new Error("League: " + metaData.displayName + " - " + JSON.stringify(errors[0]));
   } else {
     var leagueData = {
       resultsTotal: results.length,
