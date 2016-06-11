@@ -6,15 +6,20 @@ var formatMetadata = require("../../../src/js/" + path);
 
 describe(path, function () {
 
-  it("should format the startDate", function () {
-    var res = formatMetadata({startDate: "2016-06-06"})
+  var res;
 
+  beforeEach(function () {
+    res = formatMetadata({
+      startDate: "2016-06-06",
+      endDate: "2016-07-06"
+    });
+  })
+
+  it("should format the startDate", function () {
     expect(res.startDate).to.eql("June 6th 2016");
   });
 
   it("should format the endDate", function () {
-    var res = formatMetadata({endDate: "2016-06-06"})
-
-    expect(res.endDate).to.eql("June 6th 2016");
+    expect(res.endDate).to.eql("July 6th 2016");
   });
 });
