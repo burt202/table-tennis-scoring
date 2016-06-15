@@ -42,7 +42,7 @@ module.exports =   function (players, results) {
       return R.merge(pair[1], {name: pair[0]});
     }),
     R.sort(function (a, b) {
-      return a["wins"] - b["wins"] || a["diff"] - b["diff"];
+      return (a.wins - b.wins) || (a.diff - b.diff) || (a.for - b.for);
     }),
     R.reverse
   )(results);
