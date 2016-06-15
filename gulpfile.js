@@ -8,6 +8,8 @@ var swig = require("gulp-swig");
 var data = require("gulp-data");
 var R = require("ramda");
 var cleanCSS = require("gulp-clean-css");
+var gulpWebpack = require("gulp-webpack");
+var webpack = require("webpack");
 
 var basePath = __dirname + "/leagues";
 var leagues = require("./src/js/get-leagues")(basePath);
@@ -49,6 +51,17 @@ gulp.task("minify-css", function () {
     .pipe(gulp.dest("build"));
 });
 
+gulp.task("webpack", function () {
+  return gulp.src("src/js/app.js")
+    .pipe(gulpWebpack({
+      output: {
+        filename: "app.js"
+      },
+      plugins: [new webpack.optimize.UglifyJsPlugin()]
+    }, webpack))
+    .pipe(gulp.dest("build"));
+});
+
 gulp.task("build", function (callback) {
   if (!leagues.all.length) return;
 
@@ -57,6 +70,7 @@ gulp.task("build", function (callback) {
     "process-league-templates",
     "process-index-template",
     "minify-css",
+    "webpack",
     callback
   );
 });

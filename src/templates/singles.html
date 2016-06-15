@@ -18,11 +18,11 @@
 
   <div class="standings">
     <h2>Current Standings</h2>
-    <table class="table table-striped">
+    <table class="table table-striped" id="standings">
       <thead>
         <tr>
-          <th></th>
-          <th>Player</th>
+          <th class="no-sort"></th>
+          <th class="no-sort">Player</th>
           <th>Played</th>
           <th>Wins</th>
           <th>For</th>
@@ -85,25 +85,6 @@
     </div>
   {% endfor %}
 
-  <script type="text/javascript">
-
-    var allResultsDiv = document.querySelector(".all-results");
-
-    [].forEach.call(document.querySelectorAll(".standings tbody td a"), function (el) {
-      el.addEventListener("click", function (e) {
-        var row = e.target.parentNode.parentNode;
-        var selectedPlayer = row.getAttribute("data-player");
-
-        [].forEach.call(document.querySelectorAll(".breakdown"), function (el) {
-          el.style.display = "none";
-        }, false);
-
-        allResultsDiv.style.display = "none";
-        var playerBreakdownDiv = document.querySelector(".breakdown[data-player='" + selectedPlayer + "']");
-        playerBreakdownDiv.style.display = "block";
-      }, false);
-    });
-
-  </script>
+  <script type="text/javascript" src="app.js"></script>
 
 {% endblock %}
