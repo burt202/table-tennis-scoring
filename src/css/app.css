@@ -172,3 +172,11 @@ table th.sort-up:after {
   border-bottom: none;
   border-width: 4px 4px 0;
 }
+
+/* Responsive */
+
+@media (max-width: 550px) {
+  .table {
+    min-width: 500px;
+  }
+}
