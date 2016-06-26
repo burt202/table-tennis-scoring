@@ -4,7 +4,7 @@ var runSequence = require("run-sequence");
 var clean = require("gulp-clean");
 var deploy = require("gulp-gh-pages");
 var es = require("event-stream");
-var swig = require("gulp-swig");
+var nunjucks = require("gulp-nunjucks");
 var data = require("gulp-data");
 var R = require("ramda");
 var cleanCSS = require("gulp-clean-css");
@@ -32,7 +32,7 @@ gulp.task("process-league-templates", function () {
 
     return gulp.src("src/templates/" + leagueData.type + ".html")
       .pipe(data(R.merge(league, leagueData)))
-      .pipe(swig())
+      .pipe(nunjucks.compile())
       .pipe(rename(league.name + ".html"))
       .pipe(gulp.dest("build"));
   }));
@@ -41,7 +41,7 @@ gulp.task("process-league-templates", function () {
 gulp.task("process-index-template", function () {
   return gulp.src("./src/templates/index.html")
     .pipe(data({liveLeague: leagues.live, previousLeagues: leagues.previous}))
-    .pipe(swig())
+    .pipe(nunjucks.compile())
     .pipe(gulp.dest("build"));
 });
 
