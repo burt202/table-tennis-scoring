@@ -180,3 +180,14 @@ table th.sort-up:after {
     min-width: 500px;
   }
 }
+
+/* Sync the visible player results section with the hash fragment */
+
+/* This hides breakdowns by default */
+.breakdown { display: none; }
+
+/* Show the one which has an id attribute matching the hash fragment */
+.breakdown:target { display: block; }
+
+/* Hide the all results section if any of the breakdowns match */
+.breakdown:target ~ .all-results { display: none; }

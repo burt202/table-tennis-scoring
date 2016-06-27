@@ -27,20 +27,3 @@ tablesort.extend("number", function (item) {
 tablesort(document.getElementById("standings"), {
   descending: true
 });
-
-var allResultsDiv = document.querySelector(".all-results");
-
-[].forEach.call(document.querySelectorAll(".standings tbody td a"), function (el) {
-  el.addEventListener("click", function (e) {
-    var row = e.target.parentNode.parentNode;
-    var selectedPlayer = row.getAttribute("data-player");
-
-    [].forEach.call(document.querySelectorAll(".breakdown"), function (el) {
-      el.style.display = "none";
-    }, false);
-
-    allResultsDiv.style.display = "none";
-    var playerBreakdownDiv = document.querySelector(".breakdown[data-player='" + selectedPlayer + "']");
-    playerBreakdownDiv.style.display = "block";
-  }, false);
-});

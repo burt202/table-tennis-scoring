@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% macro getId(name) -%}
+  {{ name | lower | replace(r/[^a-z0-9]+/g, '-') }}
+{%- endmacro %}
+
 {% block title %}{{ displayName }}{% endblock %}
 
 {% block content %}
@@ -34,7 +38,7 @@
         {% for row in standings %}
           <tr data-player="{{ row.name }}">
             <td>{{ loop.index }}</td>
-            <td><a href="#breakdown">{{ row.name }}</a></td>
+            <td><a href="#{{ getId(row.name) }}">{{ row.name }}</a></td>
             <td>{{ row.played }}</td>
             <td>{{ row.wins }}</td>
             <td>{{ row.for }}</td>
@@ -46,24 +50,8 @@
     </table>
   </div>
 
-  <div class="all-results">
-    <h2>All Results ({{ resultsTotal }})</h2>
-    {% if allResults.length %}
-      {% for dateRow in allResults %}
-        <h3>{{ dateRow.date }}</h3>
-        {% for row in dateRow.results %}
-          <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
-        {% endfor %}
-      {% endfor %}
-    {% else %}
-      <p>No results yet</p>
-    {% endif %}
-  </div>
-
-  <a name="breakdown"></a>
-
   {% for breakdown in playerBreakdowns %}
-    <div class="breakdown" data-player="{{ breakdown.name }}" style="display: none">
+    <div class="breakdown" id="{{ getId(breakdown.name) }}">
       <h2>{{ breakdown.name }} breakdown</h2>
       {% if breakdown.results.length %}
         <h3>Results</h3>
@@ -84,6 +72,20 @@
       {% endif %}
     </div>
   {% endfor %}
+
+  <div class="all-results">
+    <h2>All Results ({{ resultsTotal }})</h2>
+    {% if allResults.length %}
+      {% for dateRow in allResults %}
+        <h3>{{ dateRow.date }}</h3>
+        {% for row in dateRow.results %}
+          <p>{{ row.winner }} beat {{ row.loser }} {{ row.score }}</p>
+        {% endfor %}
+      {% endfor %}
+    {% else %}
+      <p>No results yet</p>
+    {% endif %}
+  </div>
 
   <script type="text/javascript" src="app.js"></script>
 
