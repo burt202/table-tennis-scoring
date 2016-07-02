@@ -76,9 +76,19 @@ a:active,
 a:hover {
   outline: 0;
 }
+
 a:hover {
   color: #23527c;
   text-decoration: underline;
+}
+
+h1 a {
+  color: #333;
+}
+
+h1 a:hover {
+  color: #333;
+  text-decoration: none;
 }
 
 /* Table */
