@@ -13,7 +13,7 @@ module.exports = function (basePath) {
   var liveLeagueName;
 
   try {
-    liveLeagueName = fs.readFileSync(basePath + "/LIVE_LEAGUE");
+    liveLeagueName = fs.readFileSync(basePath + "/LIVE_LEAGUE").toString().split("\n")[0];
   } catch (e) {
     liveLeagueName = null;
   }
