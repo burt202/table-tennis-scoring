@@ -10,7 +10,8 @@
     "add-league": "./scripts/addleague",
     "add-result": "./scripts/addresult",
     "choose-live": "./scripts/chooselive",
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint src"
   },
   "keywords": [
     "table",
