@@ -40,7 +40,7 @@ gulp.task("process-league-templates", function () {
 
 gulp.task("process-index-template", function () {
   return gulp.src("./src/templates/index.html")
-    .pipe(data({liveLeague: leagues.live, previousLeagues: leagues.previous}))
+    .pipe(data({liveLeague: leagues.live, previousLeagues: leagues.previous, lastModified: new Date().toISOString()}))
     .pipe(nunjucks.compile())
     .pipe(gulp.dest("build"));
 });
