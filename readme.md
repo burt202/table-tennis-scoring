@@ -1,8 +1,7 @@
 ## Table Tennis Scoring
 
 A league and fixture generator for table tennis.
-
-Once the git hook has been copied and a league has been setup (see instructions below) then this is a push-to-deploy generated static site hosted on github pages. Perfect for keeping tabs on your office table tennis leagues.
+This is a push-to-deploy generated static site hosted on github pages. Perfect for keeping tabs on your office table tennis leagues.
 
 ### Getting Setup
 
@@ -10,8 +9,6 @@ Once the git hook has been copied and a league has been setup (see instructions 
 - `npm i`
 - `npm run add-league`
 - add players to your league (see below)
-- git commit and push
-- `npm run add-hook`
 - `npm run choose-live`
 - git commit and push
 - goto `http://[your_github_username_here].github.io/table-tennis-scoring/`
@@ -23,8 +20,10 @@ Once the git hook has been copied and a league has been setup (see instructions 
 
 ### Adding Results
 
-- `npm run add-result`
-- NOTE: the winner and loser names must match a player added to league for it to be counted as part of the standings
+- `npm run add-result` - once completed, this creates/updates a results file and commits it
+- `git push`
+
+NOTE: the winner and loser names must match a player added to league for it to be counted as part of the standings
 
 ### MetaData Propeties
 

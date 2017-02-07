@@ -6,12 +6,12 @@
   "repository": "https://github.com/burt202/table-tennis-scoring",
   "scripts": {
     "example": "cp -avr examples/test/ leagues/test; gulp build",
-    "add-hook": "cp hooks/pre-push .git/hooks/pre-push; chmod +x .git/hooks/pre-push",
     "add-league": "./scripts/addleague",
     "add-result": "./scripts/addresult",
     "choose-live": "./scripts/chooselive",
     "test": "mocha",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "postreceive": "gulp deploy"
   },
   "keywords": [
     "table",
@@ -35,6 +35,7 @@
     "gulp-nunjucks": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-webpack": "^1.5.0",
+    "husky": "^0.13.1",
     "mocha": "^2.5.3",
     "moment": "^2.13.0",
     "ramda": "^0.21.0",
