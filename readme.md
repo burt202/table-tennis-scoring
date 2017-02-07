@@ -23,8 +23,10 @@ Once the git hook has been copied and a league has been setup (see instructions 
 
 ### Adding Results
 
-- `npm run add-result`
-- NOTE: the winner and loser names must match a player added to league for it to be counted as part of the standings
+- `npm run add-result` - once completed, this creates/updates a results file and commits it
+- `git push`
+
+NOTE: the winner and loser names must match a player added to league for it to be counted as part of the standings
 
 ### MetaData Propeties
 
